@@ -4,7 +4,7 @@ Technologies used: [Snowflake](https://snowflake.com/), [Java](https://www.java.
 
 Requirements: 
 * Snowflake.com and Serverless.com account
-* java jdk installed
+* Java jdk and maven installed
 * Citibike data loaded into Snowflake
 * Snowflake user authorized to access citibike data with key pair authentication
 

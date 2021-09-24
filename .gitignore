@@ -1,0 +1,6 @@
+serverless.yml
+target
+.serverless
+.DS_Store
+.classpath
+.settings

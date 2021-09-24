@@ -1,0 +1,36 @@
+service: snowflake-java-api
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: java8
+  lambdaHashingVersion: 20201221
+  region: us-west-2
+  
+package:
+  artifact: target/snowflake-java-api.jar
+
+functions:
+  api:
+    handler: com.snowflake.Handler
+    environment:
+      SNOWFLAKE_ACCOUNT: '<ACCOUNT>'
+      SNOWFLAKE_USER: 'DATA_APPS_DEMO'
+      SNOWFLAKE_DATABASE: 'DATA_APPS_DEMO'
+      SNOWFLAKE_SCHEMA: 'DEMO'
+      SNOWFLAKE_WAREHOUSE: 'DATA_APPS_DEMO'
+      SNOWFLAKE_PRIVATE_KEY: ${ssm:/<ACCOUNT>.DATA_APPS_DEMO}
+    timeout: 15
+    events:
+      - http:
+          path: /
+          method: GET
+      - http:
+          path: /trips/monthly
+          method: GET
+      - http:
+          path: /trips/day_of_week
+          method: GET
+      - http:
+          path: /trips/temperature
+          method: GET

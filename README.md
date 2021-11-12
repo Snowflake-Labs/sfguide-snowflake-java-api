@@ -4,7 +4,7 @@ Technologies used: [Snowflake](https://snowflake.com/), [Java](https://www.java.
 
 Requirements: 
 * Snowflake.com and Serverless.com account
-* Java jdk and maven installed or docker
+* Java JDK and Maven installed or Docker
 * Citibike data loaded into Snowflake
 * Snowflake user authorized to access citibike data with key pair authentication
 
@@ -17,23 +17,29 @@ to your Snowflake user in AWS SSM is us-west-2 region under the parameter <ACCOU
 
 Install serverless and configure serverless (sls) for the project.
 
+For your first time, you will have to run sls without deploy to configure the project.
+
 ```bash
 sls login
 ```
 
-## Deployment using jdk and maven
+## Building with JDK and Maven
 
-Build and deploy the application to AWS. For your first time, you will have to run sls without deploy to configure the project.
+Build the application to AWS.
 
 ```bash
 mvn package
-sls deploy
 ```
 
-## Deployment using docker
+## Building using Docker
 
 ```bash
 docker run -it -v $(pwd):/src -w /src maven:3-openjdk-11 mvn package
+```
+
+## Deploying Project
+
+```bash
 sls deploy
 ```
 

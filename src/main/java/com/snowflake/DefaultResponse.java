@@ -1,4 +1,5 @@
 package com.snowflake;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DefaultResponse {

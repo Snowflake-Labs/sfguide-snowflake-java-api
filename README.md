@@ -25,7 +25,7 @@ sls login
 
 ## Building with JDK and Maven
 
-Build the application to AWS.
+Build the application locally
 
 ```bash
 mvn package

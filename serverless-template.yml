@@ -1,9 +1,8 @@
 service: snowflake-java-api
-frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: java8
+  runtime: java8.al2
   lambdaHashingVersion: 20201221
   region: us-west-2
   

@@ -13,9 +13,9 @@ import java.security.PrivateKey;
 import java.security.Security;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 
 import org.apache.log4j.Logger;
 
@@ -37,10 +37,10 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 			private static PrivateKey get(String key) throws Exception {
 				Security.addProvider(new BouncyCastleProvider());
 				PEMParser pemParser = new PEMParser(new StringReader(key));
-				PEMKeyPair keyPair = (PEMKeyPair) pemParser.readObject();
+				PrivateKeyInfo keyInfo = (PrivateKeyInfo) pemParser.readObject();
 				pemParser.close();
 				JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider(BouncyCastleProvider.PROVIDER_NAME);
-				return converter.getPrivateKey(keyPair.getPrivateKeyInfo());
+				return converter.getPrivateKey(keyInfo);
 			}
 		}
 
@@ -123,20 +123,20 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 		try {
 			PreparedStatement stat;
 			switch (path) {
-			case "/trips/monthly":
-				Connection conn = Connector.connect();
-				stat = monthlyPreparedStatement(queryStringParameters, conn);
-				break;
-			case "/trips/day_of_week":
-				conn = Connector.connect();
-				stat = dayOfWeekPreparedStatement(queryStringParameters, conn);
-				break;
-			case "/trips/temperature":
-				conn = Connector.connect();
-				stat = temperaturePreparedStatement(queryStringParameters, conn);
-				break;
-			default:
-				return handleDefault();
+				case "/trips/monthly":
+					Connection conn = Connector.connect();
+					stat = monthlyPreparedStatement(queryStringParameters, conn);
+					break;
+				case "/trips/day_of_week":
+					conn = Connector.connect();
+					stat = dayOfWeekPreparedStatement(queryStringParameters, conn);
+					break;
+				case "/trips/temperature":
+					conn = Connector.connect();
+					stat = temperaturePreparedStatement(queryStringParameters, conn);
+					break;
+				default:
+					return handleDefault();
 			}
 
 			long start_time = System.nanoTime();
